@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        div{
+            text-align: center;
+            
+        }
+        pre{
+            width:80%;
+            height:250px;
+            margin:auto;
+            border:1px solid black;
+            background-color: white;
+        }
+        textarea{
+            width:80%;
+            height:150px;
+            margin:auto;
+        }
+        button{
+            width: 80px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body style="background-color: antiquewhite;">
+    <div>
+        <h1>SqliteManager</h1>
+        <textarea id="command" placeholder="指令輸入區"></textarea><br>
+        <button id="submit" onclick="sqlRun()">執行</button>
+    </div>
+    <div>
+        <h2>執行結果</h2>
+        <pre id="resultJson">
+
+        </pre>
+    </div>
+    <script>
+        async function sqlRun() {
+            let command = document.getElementById('command').value//抓指令
+            let rzjson = document.getElementById('resultJson')
+            let r = await window.fetch(`/sqlcmd/${command}`)
+            let obj = await r.json()
+            rzjson.innerText = JSON.stringify(obj, null, 7)//stringfy(要序列化的物件,函式or Array or 無,轉換後字串縮排數) 
+  }
+    </script>
+</body>
+</html>
